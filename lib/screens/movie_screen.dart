@@ -1,7 +1,8 @@
 import 'dart:convert';
-
 import 'package:cineflix/Model/Movie.dart';
+import 'package:cineflix/components/custom_progress_indicator.dart';
 import 'package:cineflix/components/movie_card.dart';
+import 'package:cineflix/components/movie_popup.dart';
 import 'package:cineflix/constants.dart';
 import 'package:cineflix/main.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,12 @@ class _MovieScreenState extends State<MovieScreen> {
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: MovieCard(
                                 url: movies[index].posterUrl,
-                                onTap: () {},
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          MoviePopUp(movie: movies[index]));
+                                },
                               ),
                             );
                           },
@@ -88,7 +94,10 @@ class _MovieScreenState extends State<MovieScreen> {
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    return CircularProgressIndicator();
+                    return Container(
+                        alignment: Alignment.center,
+                        height: 250,
+                        child: CustomProgressIndicator());
                   }),
             ),
             SizedBox(
@@ -109,25 +118,37 @@ class _MovieScreenState extends State<MovieScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Movie> movies = snapshot.data!;
-                      return ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: MovieCard(
-                              url: movies[index].posterUrl,
-                              onTap: () {},
-                            ),
-                          );
-                        },
+                      return ScrollConfiguration(
+                        behavior: MyCustomScrollBehavior(),
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: MovieCard(
+                                url: movies[index].posterUrl,
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          MoviePopUp(movie: movies[index]));
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    return CircularProgressIndicator();
+                    return Container(
+                        alignment: Alignment.center,
+                        height: 250,
+                        child: CustomProgressIndicator());
                   }),
             ),
             SizedBox(
@@ -148,25 +169,38 @@ class _MovieScreenState extends State<MovieScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Movie> movies = snapshot.data!;
-                      return ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: MovieCard(
-                              url: movies[index].posterUrl,
-                              onTap: () {},
-                            ),
-                          );
-                        },
+                      return ScrollConfiguration(
+                        behavior: MyCustomScrollBehavior(),
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: MovieCard(
+                                url: movies[index].posterUrl,
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          MoviePopUp(movie: movies[index]));
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    return CircularProgressIndicator();
+                    return Container(
+                        alignment: Alignment.center,
+                        height: 250,
+                        child: CustomProgressIndicator());
+                    ;
                   }),
             ),
             SizedBox(
@@ -187,25 +221,38 @@ class _MovieScreenState extends State<MovieScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Movie> movies = snapshot.data!;
-                      return ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: MovieCard(
-                              url: movies[index].posterUrl,
-                              onTap: () {},
-                            ),
-                          );
-                        },
+                      return ScrollConfiguration(
+                        behavior: MyCustomScrollBehavior(),
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: MovieCard(
+                                url: movies[index].posterUrl,
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          MoviePopUp(movie: movies[index]));
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    return CircularProgressIndicator();
+                    return Container(
+                        alignment: Alignment.center,
+                        height: 250,
+                        child: CustomProgressIndicator());
+                    ;
                   }),
             ),
             SizedBox(
@@ -226,25 +273,38 @@ class _MovieScreenState extends State<MovieScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Movie> movies = snapshot.data!;
-                      return ListView.builder(
-                        physics: ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: MovieCard(
-                              url: movies[index].posterUrl,
-                              onTap: () {},
-                            ),
-                          );
-                        },
+                      return ScrollConfiguration(
+                        behavior: MyCustomScrollBehavior(),
+                        child: ListView.builder(
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: MovieCard(
+                                url: movies[index].posterUrl,
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          MoviePopUp(movie: movies[index]));
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-                    return CircularProgressIndicator();
+                    return Container(
+                        alignment: Alignment.center,
+                        height: 250,
+                        child: CustomProgressIndicator());
+                    ;
                   }),
             ),
           ],

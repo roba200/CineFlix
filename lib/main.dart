@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cineflix/components/youtube_player%20.dart';
 import 'package:cineflix/constants.dart';
 import 'package:cineflix/screens/homepage.dart';
+import 'package:cineflix/screens/search_screen.dart';
 
 import 'package:cineflix/screens/signin_page.dart';
 import 'package:cineflix/screens/start_screen.dart';

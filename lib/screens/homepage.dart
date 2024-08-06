@@ -2,8 +2,11 @@ import 'package:cineflix/Model/Movie.dart';
 import 'package:cineflix/constants.dart';
 import 'package:cineflix/screens/home_screen.dart';
 import 'package:cineflix/screens/movie_screen.dart';
+import 'package:cineflix/screens/search_screen.dart';
+import 'package:cineflix/screens/start_screen.dart';
 import 'package:cineflix/screens/tv_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,7 +69,10 @@ class _HomePageState extends State<HomePage>
           backgroundColor: Colors.transparent,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()));
+                },
                 icon: Icon(
                   Icons.search,
                   color: white,
@@ -75,7 +81,15 @@ class _HomePageState extends State<HomePage>
             SizedBox(
               width: 10,
             ),
-            CircleAvatar(),
+            GestureDetector(
+              child: CircleAvatar(),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return const StartScreen();
+                }), (route) => false);
+              },
+            ),
             SizedBox(
               width: 120,
             )

@@ -41,6 +41,7 @@ dependencies:
   email_validator: ^3.0.0
   youtube_player_iframe_plus: ^2.3.2
   youtube_id_scraper: ^1.0.4
+  cached_network_image: ^3.3.1
  
   
 

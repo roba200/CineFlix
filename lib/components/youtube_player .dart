@@ -33,6 +33,7 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
     _controller = YoutubePlayerController(
         initialVideoId: extractYouTubeId(widget.url)!,
         params: YoutubePlayerParams(
+          desktopMode: false,
           autoPlay: true,
           mute: false,
         ));
@@ -40,9 +41,6 @@ class _YoutubePlayerWidgetState extends State<YoutubePlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return YoutubePlayerControllerProvider(
       controller: _controller!,
       child: YoutubePlayerIFramePlus(

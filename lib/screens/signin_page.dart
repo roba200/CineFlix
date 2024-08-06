@@ -22,6 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool hover = false;
+  String feedback = "";
   final formKey = GlobalKey<FormState>();
 
   Future<void> login() async {
@@ -41,6 +42,7 @@ class _SignInPageState extends State<SignInPage> {
 
     setState(() {
       if (response.statusCode == 200) {
+        feedback = "";
         print('User logged successfully');
         User user = User.fromJson(jsonDecode(response.body));
         print(user.email);
@@ -50,8 +52,10 @@ class _SignInPageState extends State<SignInPage> {
         }), (route) => false);
       } else if (response.statusCode == 401) {
         print('User Unauthorized');
+        feedback = "Invalid Email or Password!";
       } else {
         print('Failed to login user: ${response.body}');
+        feedback = "Server error";
       }
     });
   }
@@ -103,99 +107,105 @@ class _SignInPageState extends State<SignInPage> {
                   const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
               child: Form(
                 key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Sign In",
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    SizedBox(
-                        width: 300,
-                        child: CustomTextField(
-                          controller: emailController,
-                          baseColor: white,
-                          text: 'Email',
-                          validator: (email) =>
-                              email != null && !EmailValidator.validate(email)
-                                  ? 'Enter a valid email'
-                                  : null,
-                        )),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    SizedBox(
-                        width: 300,
-                        child: CustomTextField(
-                          controller: passwordController,
-                          baseColor: white,
-                          text: 'Password',
-                          obsecureText: true,
-                          validator: (password) {
-                            if (password.toString().length < 6 ||
-                                password == null) {
-                              return 'Password must be at least 6 charactors';
-                            } else {
-                              return null;
-                            }
-                          },
-                        )),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                        width: 300,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sign In",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
                         height: 50,
-                        child: CustomButton(
-                          text: 'Sign In',
-                          onPressed: () async {
-                            final form = formKey.currentState!;
-                            if (form.validate()) {
-                              print("sign in");
-                              await login();
-                            }
-                          },
-                        )),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "New to Netflix?",
-                          style: TextStyle(color: grey),
-                        ),
-                        TextButton(
-                            onHover: (value) {
-                              setState(() {
-                                hover = value;
-                              });
+                      ),
+                      SizedBox(
+                          width: 300,
+                          child: CustomTextField(
+                            controller: emailController,
+                            baseColor: white,
+                            text: 'Email',
+                            validator: (email) =>
+                                email != null && !EmailValidator.validate(email)
+                                    ? 'Enter a valid email'
+                                    : null,
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                          width: 300,
+                          child: CustomTextField(
+                            controller: passwordController,
+                            baseColor: white,
+                            text: 'Password',
+                            obsecureText: true,
+                            validator: (password) {
+                              if (password.toString().length < 6 ||
+                                  password == null) {
+                                return 'Password must be at least 6 charactors';
+                              } else {
+                                return null;
+                              }
                             },
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => StartScreen()));
+                          )),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                          width: 300,
+                          height: 50,
+                          child: CustomButton(
+                            text: 'Sign In',
+                            onPressed: () async {
+                              final form = formKey.currentState!;
+                              if (form.validate()) {
+                                print("sign in");
+                                await login();
+                              }
                             },
-                            child: Text(
-                              "Sign up now.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: white,
-                                  decoration: hover
-                                      ? TextDecoration.underline
-                                      : TextDecoration.none,
-                                  decorationColor: white),
-                            ))
-                      ],
-                    )
-                  ],
+                          )),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "New to Netflix?",
+                            style: TextStyle(color: grey),
+                          ),
+                          TextButton(
+                              onHover: (value) {
+                                setState(() {
+                                  hover = value;
+                                });
+                              },
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => StartScreen()));
+                              },
+                              child: Text(
+                                "Sign up now.",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: white,
+                                    decoration: hover
+                                        ? TextDecoration.underline
+                                        : TextDecoration.none,
+                                    decorationColor: white),
+                              ))
+                        ],
+                      ),
+                      Text(
+                        feedback,
+                        style: TextStyle(color: red),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
